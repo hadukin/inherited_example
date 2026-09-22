@@ -49,8 +49,8 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 Text('$data'),
-                InfoView(),
-                ProfileWidget(),
+                const InfoView(),
+                const ProfileWidget(),
               ],
             ),
           ),
@@ -60,17 +60,69 @@ class _HomeState extends State<Home> {
   }
 }
 
-class InfoView extends StatelessWidget {
+class InfoView extends StatefulWidget {
   const InfoView({super.key});
 
   @override
+  State<InfoView> createState() => _InfoViewState();
+}
+
+class _InfoViewState extends State<InfoView> {
+  @override
+  void initState() {
+    super.initState();
+    print('InfoView: initState');
+  }
+
+  @override
+  void didUpdateWidget(covariant InfoView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('InfoView: didUpdateWidget');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // It won’t be called because the widget is tied to the Builder context.
+    print('InfoView: didChangeDependencies');
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Text('${DataInheritedWidget.maybeOf(context)?.data}');
+    return Builder(
+      builder: (context) {
+        return Text('${DataInheritedWidget.maybeOf(context)?.data}');
+      },
+    );
   }
 }
 
-class ProfileWidget extends StatelessWidget {
+class ProfileWidget extends StatefulWidget {
   const ProfileWidget({super.key});
+
+  @override
+  State<ProfileWidget> createState() => _ProfileWidgetState();
+}
+
+class _ProfileWidgetState extends State<ProfileWidget> {
+  @override
+  void initState() {
+    super.initState();
+    print('ProfileWidget: initState');
+  }
+
+  @override
+  void didUpdateWidget(covariant ProfileWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('ProfileWidget: didUpdateWidget');
+  }
+
+  @override
+  void didChangeDependencies() {
+    // It is called every time the InheritedWidget is changed
+    print('ProfileWidget: didChangeDependencies');
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
